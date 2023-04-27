@@ -33,6 +33,7 @@ return [
 
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
+        'secret_cli' => env('STRIPE_SECRET_CLI'),
     ],
 
 ];
