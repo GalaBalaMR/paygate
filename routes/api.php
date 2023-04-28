@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::controller(StripePayGateController::class)->group(function () {
-    Route::post('/gate', 'makePayment')->name('makePayment')->middleware('signed');//signed url, where payment and connection with stripe is create.
+    Route::post('/gate', 'makePayment')->name('makePayment');//payment and connection with stripe is created.
     Route::post('/update', 'updateEndpoint');//stripe endpoint for update payment and log status
     Route::get('/pay-expiration/{id}', 'payExpiration');//for verification, if payment is not expired
 });

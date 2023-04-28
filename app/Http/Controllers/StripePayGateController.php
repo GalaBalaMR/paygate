@@ -11,12 +11,13 @@ use App\Data\PaymentData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Enum\PaymentStatusEnum;
-use App\Http\Requests\PaymentRequest;
 use App\Mail\Customer\PaymentInfo;
 use Illuminate\Support\Facades\Log;
 use Stripe\Exception\CardException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\PaymentRequest;
+use Illuminate\Support\Facades\Crypt;
 
 class StripePayGateController extends Controller
 {
@@ -24,9 +25,10 @@ class StripePayGateController extends Controller
     {
 
         // control url signature, which is make in /signed-url and added in Postman
-        if (! $request->hasValidSignature()) {
-            abort(401);
-        }
+        // cant use, bcs stripe signature not working with this
+        // if (! $request->hasValidSignature()) {
+        //     abort(401);
+        // } 
 
         $request->validated($request->all());
 
@@ -64,7 +66,7 @@ class StripePayGateController extends Controller
                 'currency' => 'eur',
                 'source' => 'tok_mastercard',
                 'description' => 'Payment from good customer',
-                'metadata' => ['user_id' => $user->id, 'payment_id' => $payment->id],
+                'metadata' => ['user_id' => Crypt::encryptString($user->id), 'payment_id' => Crypt::encryptString($payment->id)],
             ]);
 
             if ($response->status === 'succeeded') {
@@ -131,7 +133,7 @@ class StripePayGateController extends Controller
             );
 
             // Change payment status based on event
-            $payment = Payment::with('user')->find($event->data->object->metadata->payment_id);
+            $payment = Payment::with('user')->find(Crypt::decryptString($event->data->object->metadata->payment_id));
 
             if ($event->type === 'charge.succeeded') {
                 $payment->status = PaymentStatusEnum::Paid;

@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('signed-url', function () {
-    return URL::signedRoute('makePayment', []);
-});
+// Route::get('signed-url', function () {
+//     return URL::signedRoute('makePayment', []);
+// });
