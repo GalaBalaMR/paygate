@@ -3,8 +3,8 @@
 <p>
     I made a real connection with stripe, so i hope thats not problem, but this was my first time working with something like this.
 
-    I want to apologize, that i cant resolve some tasks from assignment. 
-    I had some problem with: 
+    I want to apologize, that i cant resolve some tasks from assignment.
+    I had some problem with:
 
     -DTO, thats my personal disappointment, bcs when i read about it, i told myself that is easy. It was just some syntax problem, i couldnt resolve how to get collection of related user in DTO. I use package Spatie Data for DTO. It was working, but not perfectly, so i did not use DTO.
 
@@ -12,9 +12,8 @@
 
     - and i do not use queue, job, service provider and abstraction, i can use it, but for this example i dont know what for, honestly. If you can give me some hint, i will do it.
 
-    
 </p>
 
 <p>
     Connection with stripe pay gateway, make payments, log error and info, send email when is changed payment status from stripe.
-</p> 
+</p>
